@@ -1,0 +1,1 @@
+dfm <- function(k) D = cbind(0,diag(k-1))-cbind(diag(k-1),0)

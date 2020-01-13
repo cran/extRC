@@ -1,0 +1,10 @@
+exportPattern("^[[:alpha:]]+")
+
+# Imported function
+import("MASS")
+importFrom("graphics", "plot")
+
+# S3methods
+S3method(print, extRC)
+S3method(plot, extRC)
+S3method(summary, extRC)
