@@ -1,4 +1,4 @@
-extRC <-function(N, mod, k, la, marg.cons = c("free","equal","shift")){
+extRC <-function(N, mod, k=min(dim(N))-1, la=0, marg.cons = c("free","equal","shift")){
 
 # preliminaries
   marg.cons = match.arg(marg.cons)

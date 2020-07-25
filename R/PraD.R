@@ -12,7 +12,7 @@ PraD <-function(the,Model,der=FALSE){
 
 # interactions
   if(la==0){
-    f11 = c(J11%*%p); f10 = J10%*%p; f01 = J01%*%p; f00 = J00%*%p
+    f11 = c(J11%*%p); f10 = c(J10%*%p); f01 = c(J01%*%p); f00 = c(J00%*%p)
     Int = log(f11)-log(f10)-log(f01)+log(f00)
   }else{
     d11 = 1/c((R1%*%p)%x%(C1%*%p)); d10 = 1/c((R1%*%p)%x%(C0%*%p))

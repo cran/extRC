@@ -1,5 +1,4 @@
-Deta <-
-function(the,Model,der=FALSE){
+Deta <- function(the,Model,der=FALSE){
 
 # preliminaries
   G = Model$G; R0 = Model$R0; R1 = Model$R1; C0 = Model$C0; C1 = Model$C1
@@ -29,7 +28,7 @@ function(the,Model,der=FALSE){
     Mg = rbind((1/(R1%*%p))*R1/c(R1%*%p)-R0/c(R0%*%p),
                (1/(C1%*%p))*C1-(1/(C0%*%p))*C0)
     if(la==0){
-           Dj = J11/f11-J10/f10-J01/f01+J00/f00
+      Dj = J11/f11-J10/f10-J01/f01+J00/f00
     }else{
       g11 = f11^(la-1); g10 = f10^(la-1); g01 = f01^(la-1); g00 = f00^(la-1)
       D11 = d11*J11-((J11%*%p)*d11^2)%*%(R1%x%(C1%*%p)+(R1%*%p)%x%C1)
