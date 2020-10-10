@@ -1,9 +1,8 @@
 MainRC <-function(y,Model,the0=NULL,output=FALSE){
 
 # Preliminaries
-  eps = 10^-16
-  G = Model$G; la = Model$la; lev = Model$lev
-  eps = 10^(-6); tol = 10^(-6); maxit = 500
+  G = Model$G; la = Model$la
+  eps = 10^(-8); tol = 10^(-8); maxit = 600
   n = sum(y); y = y+eps*(y==0); y = y*n/sum(y)
 
 # Raw estimate  
@@ -13,7 +12,7 @@ MainRC <-function(y,Model,the0=NULL,output=FALSE){
   hdis = out$hdis; Hdis = out$Hdis
 
 # Iterate
-  it = 0; fc = rep(0,4)
+  it = 0; fc = rep(0,4); tmax = 200
   if(sum(abs(hdis)) <= tol){
     th1 = the0
     dev = 0
@@ -30,6 +29,7 @@ MainRC <-function(y,Model,the0=NULL,output=FALSE){
     fc[1] = y%*%log(pj)/n-hdis%*%hdis/2
     fc[2] = de%*%c(t(G)%*%(y/n-pj)-t(Hdis)%*%hdis)
     th = the0+de/4; pj = c(exp(G%*%th)); pj = pj/sum(pj)
+    th = pmax(pmin(th,tmax),-tmax)
     out = PraD(th,Model,der=TRUE)
     hdis = out$hdis; Hdis = out$Hdis
     fc[3] = y%*%log(pj)/n-hdis%*%hdis/2; th = the0+de/2 
@@ -37,11 +37,13 @@ MainRC <-function(y,Model,the0=NULL,output=FALSE){
     fc[4] = y%*%log(pj)/n-hdis%*%hdis/2; st = cuby(fc) 
 # reconstruct
     th1 = the0+st*de; pj = c(exp(G%*%th1)); pj = pj/sum(pj)
-    hdis = PraD(th1,Model)$hdis; LK = c(y%*%log(pj)); the0 = th1
+    th1 = pmax(pmin(th1,tmax),-tmax)
+    out = PraD(th1,Model)
+    eta = out$eta; hdis = out$hdis
+    LK = c(y%*%log(pj)); the0 = th1
 # Computes deviance
-    dev=-2*(LK-LKu)
+    dev = 2*(LKu-LK)
   }
-  if(output) eta = Deta(th1,Model)$eta
   df = length(hdis)
 # output
   out = list(dev=dev,df=df,pj=pj,it=it,dis=sum(abs(hdis)))

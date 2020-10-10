@@ -22,6 +22,7 @@ PraD <-function(the,Model,der=FALSE){
   }
 
 # constraints
+  eta = c(Lr,Lc,Int)
   hm = Cmg%*%rbind(Lr,Lc) # constraints on marginals
   hj = Cjn%*%Int 
   if(der){
@@ -50,7 +51,7 @@ PraD <-function(the,Model,der=FALSE){
   }
 
 # output
-  out = list(hdis=hdis)
+  out = list(eta=eta,hdis=hdis)
   if(der) out$Hdis = Hdis
   return(out)
 

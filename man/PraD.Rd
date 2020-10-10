@@ -1,9 +1,9 @@
 \name{PraD}
 \alias{PraD}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Discrepancy with respect to inequality constraints}
+\title{Discrepancy with respect to equality constraints}
 \description{
-Internal function that, given a vector of joint probabilities from an \emph{I}x\emph{J} table (vectorized by row) and the RC model specification in list Model, computes vector of discrepancies and matrix of its derivatives with respect to the canonical parameters.
+Internal function that, given a vector of canonical parameters for an \emph{I}x\emph{J} table (vectorized by row) and the RC model specification in list Model, computes vector of discrepancies and matrix of its derivatives with respect to the canonical parameters.
 }
 \usage{
 PraD(the, Model, der = FALSE)
@@ -16,6 +16,7 @@ PraD(the, Model, der = FALSE)
 }
 
 \value{
+\item{eta}{vector of parameters (logits, interactions)}
 \item{hdis}{vector of discrepancies}
 \item{Hdis}{matrix of derivatives of discrepancies with respect to the canonical parameter (optional)}
 }
